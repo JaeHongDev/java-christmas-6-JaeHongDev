@@ -1,5 +1,9 @@
 package christmas.domain.vo;
 
+import christmas.domain.exception.DomainExceptionCode;
+import java.util.Arrays;
+import java.util.Objects;
+
 public enum Food {
     MUSHROOM_SOUP("양송이수프", 6_000),
     TAPAS("타파스", 5_500),
@@ -26,6 +30,13 @@ public enum Food {
     Food(String name, int price) {
         this.name = name;
         this.price = price;
+    }
+
+    public static Food of(String foodName) {
+        return Arrays.stream(values())
+                .filter(food -> Objects.equals(food.name, foodName))
+                .findFirst()
+                .orElseThrow(DomainExceptionCode.INVALID_ORDER::createException);
     }
 
     public String getName() {
