@@ -16,4 +16,5 @@ public record OrderLine(
         INVALID_ORDER.invokeByCondition(orderItems.stream().mapToInt(OrderItem::quantity).sum() > 20);
         INVALID_ORDER.invokeByCondition(orderItems.stream().map(OrderItem::food).allMatch(Menu.BEVERAGE::contains));
     }
+    
 }
