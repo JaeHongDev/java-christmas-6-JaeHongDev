@@ -14,4 +14,11 @@ public record OrderItem(Food food, int quantity) {
         this(Food.of(foodName), quantity);
     }
 
+    public String getFoodName() {
+        return food.getName();
+    }
+
+    public int getTotalPrice() {
+        return food.calculatePrice(quantity);
+    }
 }

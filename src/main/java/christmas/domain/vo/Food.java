@@ -42,4 +42,8 @@ public enum Food {
     public String getName() {
         return name;
     }
+
+    public int calculatePrice(int quantity) {
+        return price * quantity;
+    }
 }
