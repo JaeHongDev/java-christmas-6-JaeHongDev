@@ -14,6 +14,12 @@ public enum DomainExceptionCode {
         return new DomainException(message);
     }
 
+    public void invokeByCondition(boolean condition) {
+        if (condition) {
+            throw new DomainException(message);
+        }
+    }
+
     public String getMessage() {
         return message;
     }
