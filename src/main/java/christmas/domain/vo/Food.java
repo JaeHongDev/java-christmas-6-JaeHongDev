@@ -46,4 +46,8 @@ public enum Food {
     public int calculatePrice(int quantity) {
         return price * quantity;
     }
+
+    public int getPrice() {
+        return price;
+    }
 }
