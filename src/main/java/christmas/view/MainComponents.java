@@ -1,5 +1,6 @@
 package christmas.view;
 
+import christmas.component.RegisterDateOfVisitComponent;
 import christmas.event.EventListener;
 import christmas.view.Component.ComponentRenderResult;
 import java.util.List;
@@ -11,7 +12,7 @@ public class MainComponents {
     private final OutputView outputView;
 
     public MainComponents(InputView inputView, OutputView outputView, EventListener eventListener) {
-        this.components = List.of();
+        this.components = List.of(new RegisterDateOfVisitComponent(inputView, eventListener));
         this.outputView = outputView;
     }
 
