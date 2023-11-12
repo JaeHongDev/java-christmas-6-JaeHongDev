@@ -1,6 +1,7 @@
 package christmas.component;
 
 import christmas.event.EventListener;
+import christmas.event.RegisterOrderEvent;
 import christmas.view.Component;
 import christmas.view.InputView;
 import christmas.view.OutputView;
@@ -9,8 +10,7 @@ public record RegisterOrderComponent(InputView inputView, OutputView outputView,
 
     @Override
     public void render() {
-
-        inputView.readOrderLine();
-
+        eventListener.listenWithParameter(RegisterOrderEvent::new)
+                .accept(inputView.readOrderLine());
     }
 }
