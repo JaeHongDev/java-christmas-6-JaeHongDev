@@ -18,4 +18,8 @@ public class OrderRepository {
     public void save(Order order) {
         this.order = order;
     }
+
+    public Order findOrder() {
+        return order;
+    }
 }

@@ -41,6 +41,11 @@ public class Order {
     }
 
     public BenefitDetails applyDiscount() {
+
+        final var totalPrice = this.calculateTotalPrice();
+        if (totalPrice.isLessThanEqual(10_000)) {
+            return BenefitDetails.create(totalPrice);
+        }
         return BenefitDetails.create(this.calculateTotalPrice())
                 .merge(EnumSet.allOf(Benefit.class)
                         .stream()

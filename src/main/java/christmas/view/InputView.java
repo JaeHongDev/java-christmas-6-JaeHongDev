@@ -23,7 +23,7 @@ public final class InputView extends ConsoleWriter {
         try {
             return Integer.parseInt(consoleReader.read());
         } catch (NumberFormatException exception) {
-            throw new IllegalStateException("유효하지 않는 날짜입니다.");
+            throw new IllegalArgumentException("유효하지 않은 날짜입니다. 다시 입력해 주세요.");
         }
     }
 
@@ -35,13 +35,19 @@ public final class InputView extends ConsoleWriter {
                 .map(str -> str.split("-"))
                 .peek(str -> {
                     if (str.length != 2) {
-                        throw new IllegalArgumentException("유효하지 않는 입력");
+                        throw new IllegalArgumentException("유효하지 않은 주문입니다. 다시 입력해 주세요.");
                     }
                 })
                 .collect(toMap(splitStr -> splitStr[0],
-                        splitStr -> Integer.parseInt(splitStr[1]),
+                        splitStr -> {
+                            try {
+                                return Integer.parseInt(splitStr[1]);
+                            } catch (NumberFormatException exception) {
+                                throw new IllegalArgumentException("유효하지 않은 주문입니다. 다시 입력해 주세요.");
+                            }
+                        },
                         (prev, next) -> {
-                            throw new IllegalArgumentException("유효하지 않은 입력");
+                            throw new IllegalArgumentException("유효하지 않은 주문입니다. 다시 입력해 주세요.");
                         },
                         LinkedHashMap::new
                 ));

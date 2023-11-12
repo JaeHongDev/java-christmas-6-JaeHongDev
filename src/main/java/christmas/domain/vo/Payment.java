@@ -5,6 +5,10 @@ public record Payment(int value) {
         return value >= other;
     }
 
+    public boolean isLessThanEqual(int other) {
+        return value <= other;
+    }
+
     public int minus(int amountAfterDiscount) {
         return value - amountAfterDiscount;
     }

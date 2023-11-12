@@ -12,7 +12,7 @@ public record BenefitDetails(
         Map<Benefit, Payment> benefitPayments
 ) {
 
-    private static final int CRITERIA_FOR_BENEFIT = 1200000;
+    private static final int CRITERIA_FOR_BENEFIT = 120000;
 
     public static BenefitDetails create(Payment totalPrice) {
         if (totalPrice.isGreaterThanEqual(CRITERIA_FOR_BENEFIT)) {

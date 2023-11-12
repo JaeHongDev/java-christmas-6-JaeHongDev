@@ -10,7 +10,6 @@ public class WeekendDiscount implements Discount {
     @Override
     public Payment apply(LocalDate date, OrderLine orderLine) {
         return new Payment(orderLine.orderItems()
-
                 .stream()
                 .filter(orderItem -> Menu.MAIN_COURSE.contains(orderItem.food()))
                 .mapToInt(OrderItem::quantity)
