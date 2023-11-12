@@ -44,4 +44,8 @@ public enum Benefit {
         }
         return discount.apply(date, orderLine);
     }
+
+    public String getBenefitName() {
+        return name;
+    }
 }
