@@ -1,23 +1,22 @@
 package christmas.domain.benefit;
 
-import java.time.DayOfWeek;
+import christmas.domain.util.ChristmasLocalDate;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.function.Predicate;
 
 public enum DiscountCondition {
-    CHRISTMAS_DISCOUNT(date -> date.isBefore(LocalDate.of(2023, 12, 26))),
-    WEEKEND_DISCOUNT(date -> date.getDayOfWeek() == DayOfWeek.FRIDAY || date.getDayOfWeek() == DayOfWeek.SATURDAY),
-    WEEKDAY_DISCOUNT(date -> date.getDayOfWeek() != DayOfWeek.FRIDAY && date.getDayOfWeek() != DayOfWeek.SATURDAY),
-    SPECIAL_DISCOUNT(date -> List.of(3, 10, 17, 24, 31).contains(date.getDayOfMonth())),
+    CHRISTMAS_DISCOUNT(ChristmasLocalDate::beforeChristmas),
+    WEEKEND_DISCOUNT(ChristmasLocalDate::isWeekend),
+    WEEKDAY_DISCOUNT(ChristmasLocalDate::isWeekday),
+    SPECIAL_DISCOUNT(ChristmasLocalDate::containsSpecialDay),
     ALL_DAY(ignore -> true);
-    private final Predicate<LocalDate> function;
+    private final Predicate<LocalDate> predicate;
 
-    DiscountCondition(Predicate<LocalDate> function) {
-        this.function = function;
+    DiscountCondition(Predicate<LocalDate> predicate) {
+        this.predicate = predicate;
     }
 
     public boolean isSatisfy(LocalDate date) {
-        return function.test(date);
+        return predicate.test(date);
     }
 }
