@@ -6,7 +6,7 @@ import christmas.domain.vo.Food;
 import christmas.domain.vo.OrderItem;
 import christmas.domain.vo.OrderLine;
 import christmas.domain.vo.Payment;
-import java.time.LocalDate;
+import christmas.fixture.date.ChristmasLocalDateFixture;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DisplayNameGeneration;
@@ -20,13 +20,21 @@ class WeekDayDiscountTest {
 
     @Test
     void 평일_할인은_디저트_메뉴_수량_1개당_2023원_할인됩니다() {
-        final var result = new WeekDayDiscount().apply(LocalDate.of(2023, 12, 1), new OrderLine(
+        final var result = new WeekDayDiscount().apply(ChristmasLocalDateFixture.CHRISTMAS_DATE, new OrderLine(
                 List.of(
                         new OrderItem(Food.ICE_CREAM, 10),
                         new OrderItem(Food.MUSHROOM_SOUP, 10)
                 )
         ));
-        assertThat(result).isEqualTo(new Payment(10 * 2023));
+        assertThat(result).isEqualTo(new Payment(20230));
+    }
+
+    @Test
+    void 디저트_메뉴가_없으면_0원입니다() {
+        final var result = new WeekDayDiscount().apply(ChristmasLocalDateFixture.CHRISTMAS_DATE, new OrderLine(
+                List.of(new OrderItem(Food.MUSHROOM_SOUP, 10))
+        ));
+        assertThat(result).isEqualTo(new Payment(0));
     }
 
 }
