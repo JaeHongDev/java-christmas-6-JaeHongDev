@@ -1,5 +1,7 @@
 package christmas.event;
 
+import christmas.domain.exception.DomainExceptionCode;
+import christmas.domain.util.ChristmasLocalDate;
 import christmas.event.EventListener.ParameterEvent;
 import christmas.repository.OrderRepository;
 import java.time.DateTimeException;
@@ -13,9 +15,9 @@ public record RegisterDateOfVisitEvent(OrderRepository orderRepository) implemen
 
     private LocalDate parse(int day) {
         try {
-            return LocalDate.of(2023, 12, day);
+            return ChristmasLocalDate.create(day);
         } catch (DateTimeException exception) {
-            throw new IllegalArgumentException("유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+            throw DomainExceptionCode.INVALID_DATE.createException();
         }
     }
 }
