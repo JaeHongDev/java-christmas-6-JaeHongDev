@@ -2,12 +2,9 @@ package christmas.domain.benefit.discount;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import christmas.domain.vo.Food;
-import christmas.domain.vo.OrderItem;
-import christmas.domain.vo.OrderLine;
+import christmas.domain.util.ChristmasLocalDate;
 import christmas.domain.vo.Payment;
-import java.time.LocalDate;
-import java.util.List;
+import christmas.fixture.order.OrderLineFixture;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -27,10 +24,10 @@ class ChristmasDiscountTest {
             25,3400
             """)
     void 크리스마스_할인은_1일부터_시작해서_25일까지_100원식_증가합니다(int day, int price) {
-        final var payment = new ChristmasDiscount().apply(LocalDate.of(2023, 12, day), new OrderLine(List.of(
-                new OrderItem(Food.BBQ_RIBS, 1)
-        )));
-        assertThat(payment).isEqualTo(new Payment(price));
+        final var date = ChristmasLocalDate.create(day);
+        final var orderLine = OrderLineFixture.ONLY_MAIN_MENU;
+        assertThat(new ChristmasDiscount().apply(date, orderLine))
+                .isEqualTo(new Payment(price));
 
     }
 
