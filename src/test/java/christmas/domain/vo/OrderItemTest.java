@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 import christmas.domain.exception.DomainExceptionCode;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -21,9 +20,8 @@ class OrderItemTest {
 
     @Test
     void 음식의_이름을_가져올_수_있습니다() {
-        Assertions.assertThat(new OrderItem(Food.BBQ_RIBS, 1).getFoodName())
+        assertThat(new OrderItem(Food.BBQ_RIBS, 1).getFoodName())
                 .isEqualTo("바비큐립");
-
     }
 
     @ParameterizedTest
@@ -41,10 +39,11 @@ class OrderItemTest {
     @DisplayName("생성 테스트")
     class CreateTest {
 
-        @Test
-        void 존재하지_않는_음식이름으로_주문항목을_만들_수_없습니다() {
+        @ParameterizedTest
+        @ValueSource(strings = {"없음", "바베큐리립"})
+        void 존재하지_않는_음식이름으로_주문항목을_만들_수_없습니다(final String input) {
             assertThatIllegalArgumentException()
-                    .isThrownBy(() -> new OrderItem("없음", 1))
+                    .isThrownBy(() -> new OrderItem(input, 1))
                     .withMessageContaining(DomainExceptionCode.INVALID_ORDER.getMessage());
         }
 
