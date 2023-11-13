@@ -1,13 +1,11 @@
 package christmas.domain.vo;
 
-import christmas.domain.exception.DomainExceptionCode;
+import static christmas.domain.exception.DomainExceptionCode.INVALID_ORDER;
 
 public record OrderItem(Food food, int quantity) {
 
     public OrderItem {
-        if (quantity <= 0) {
-            throw DomainExceptionCode.INVALID_ORDER.createException();
-        }
+        INVALID_ORDER.invokeByCondition(quantity <= 0);
     }
 
     public OrderItem(String foodName, int quantity) {
