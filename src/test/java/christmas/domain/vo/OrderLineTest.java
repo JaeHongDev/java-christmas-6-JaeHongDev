@@ -27,7 +27,6 @@ class OrderLineTest {
             assertThatIllegalArgumentException()
                     .isThrownBy(() -> new OrderLine(List.of()))
                     .withMessageContaining(DomainExceptionCode.INVALID_ORDER.getMessage());
-
         }
 
         @Test
@@ -35,7 +34,6 @@ class OrderLineTest {
             assertThatIllegalArgumentException()
                     .isThrownBy(() -> new OrderLine(null))
                     .withMessageContaining(DomainExceptionCode.INVALID_ORDER.getMessage());
-
         }
 
         @Test
@@ -43,8 +41,8 @@ class OrderLineTest {
             assertThatIllegalArgumentException()
                     .isThrownBy(() -> new OrderLine(List.of(
                             new OrderItem(Food.CHAMPAGNE, 5),
-                            new OrderItem(Food.RED_WINE, 5)
-                    ))).withMessageContaining(DomainExceptionCode.INVALID_ORDER.getMessage());
+                            new OrderItem(Food.RED_WINE, 5))))
+                    .withMessageContaining(DomainExceptionCode.INVALID_ORDER.getMessage());
         }
 
         @ParameterizedTest
