@@ -6,26 +6,40 @@ import christmas.domain.vo.Food;
 import christmas.domain.vo.OrderItem;
 import christmas.domain.vo.OrderLine;
 import christmas.domain.vo.Payment;
-import java.time.LocalDate;
+import christmas.fixture.date.ChristmasLocalDateFixture;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @DisplayName("[도메인] 주말할인 ")
 class WeekendDiscountTest {
 
+
+    @ParameterizedTest
+    @CsvSource(textBlock = """
+            1,2023
+            10,20230
+            20,40460
+            """)
+    void 주말_할인은_메인_메뉴_수량_1개당_2023원_할인됩니다(int quantity, int discountAmount) {
+        final var result = new WeekendDiscount()
+                .apply(ChristmasLocalDateFixture.CHRISTMAS_DATE, new OrderLine(List.of(new OrderItem(Food.BBQ_RIBS, quantity))
+                ));
+        assertThat(result).isEqualTo(new Payment(discountAmount));
+    }
+
     @Test
-    void 주말_할인은_메인_메뉴_수량_1개당_2023원_할인됩니다() {
-        final var result = new WeekendDiscount().apply(LocalDate.of(2023, 12, 1), new OrderLine(
-                List.of(
-                        new OrderItem(Food.ICE_CREAM, 10),
-                        new OrderItem(Food.BBQ_RIBS, 10)
-                )
+    void 메인_메뉴가_없는_경우는_0원_할인_됩니다() {
+        final var result = new WeekendDiscount().apply(ChristmasLocalDateFixture.CHRISTMAS_DATE, new OrderLine(
+                List.of(new OrderItem(Food.ICE_CREAM, 10))
         ));
-        assertThat(result).isEqualTo(new Payment(10 * 2023));
+        assertThat(result).isEqualTo(new Payment(0));
+
     }
 
 
