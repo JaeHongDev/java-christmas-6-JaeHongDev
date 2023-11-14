@@ -12,14 +12,7 @@ public record BenefitDetails(
         Map<Benefit, Payment> benefitPayments
 ) {
 
-    private static final int CRITERIA_FOR_BENEFIT = 120000;
-
     public static BenefitDetails create(Payment totalPrice) {
-        if (totalPrice.isGreaterThanEqual(CRITERIA_FOR_BENEFIT)) {
-            return new BenefitDetails(totalPrice, new LinkedHashMap<>() {{
-                this.put(Benefit.GIVEAWAY_BENEFIT, new Payment(Food.CHAMPAGNE.getPrice()));
-            }});
-        }
         return new BenefitDetails(totalPrice, new LinkedHashMap<>());
     }
 
@@ -43,7 +36,6 @@ public record BenefitDetails(
                         (prev, next) -> next,
                         LinkedHashMap::new
                 ));
-
     }
 
     public int calculateBenefitAmount() {
@@ -61,5 +53,10 @@ public record BenefitDetails(
                 .mapToInt(Payment::value)
                 .sum();
         return totalPrice.minus(amountAfterDiscount);
+    }
+
+    public BenefitDetails merge(Benefit benefit, Payment payment) {
+        benefitPayments.put(benefit, payment);
+        return new BenefitDetails(totalPrice, benefitPayments);
     }
 }

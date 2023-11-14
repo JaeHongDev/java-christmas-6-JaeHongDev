@@ -9,7 +9,11 @@ public record Payment(int value) {
         return value <= other;
     }
 
-    public int minus(int amountAfterDiscount) {
-        return value - amountAfterDiscount;
+    public boolean isLessThan(int other) {
+        return value < other;
+    }
+
+    public int minus(int other) {
+        return value - other;
     }
 }
