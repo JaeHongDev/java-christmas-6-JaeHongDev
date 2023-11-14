@@ -4,6 +4,7 @@ import static java.util.stream.Collectors.toMap;
 
 import christmas.domain.benefit.Benefit;
 import christmas.domain.benefit.BenefitDetails;
+import christmas.domain.vo.Food;
 import christmas.domain.vo.OrderItem;
 import christmas.domain.vo.OrderLine;
 import christmas.domain.vo.Payment;
@@ -14,7 +15,6 @@ import java.util.Map;
 import java.util.function.Function;
 
 public class Order {
-
     private final LocalDate localDate;
     private final OrderLine orderLine;
 
@@ -27,7 +27,8 @@ public class Order {
         return new Payment(orderLine.orderItems()
                 .stream()
                 .mapToInt(OrderItem::getTotalPrice)
-                .sum());
+                .sum()
+        );
     }
 
     public Map<String, Integer> selectMenuAndQuantity() {
@@ -36,25 +37,31 @@ public class Order {
                 .collect(toMap(OrderItem::getFoodName,
                         OrderItem::quantity,
                         (prev, next) -> next,
-                        LinkedHashMap::new
-                ));
+                        LinkedHashMap::new)
+                );
     }
 
     public BenefitDetails applyDiscount() {
-
         final var totalPrice = this.calculateTotalPrice();
-        if (totalPrice.isLessThanEqual(10_000)) {
+        if (totalPrice.isLessThan(10_000)) {
             return BenefitDetails.create(totalPrice);
         }
-        return BenefitDetails.create(this.calculateTotalPrice())
-                .merge(EnumSet.allOf(Benefit.class)
-                        .stream()
-                        .filter(benefit -> !Benefit.GIVEAWAY_BENEFIT.equals(benefit))
-                        .filter(benefit -> benefit.isSatisfyCondition(localDate))
-                        .collect(toMap(Function.identity(),
-                                benefit -> benefit.applyDiscount(localDate, orderLine),
-                                (prev, next) -> next,
-                                LinkedHashMap::new)
-                        ));
+        return applyGiveawayDiscount(totalPrice).merge(EnumSet.allOf(Benefit.class)
+                .stream()
+                .filter(benefit -> !Benefit.GIVEAWAY_BENEFIT.equals(benefit))
+                .filter(benefit -> benefit.isSatisfyCondition(localDate))
+                .collect(toMap(Function.identity(),
+                        benefit -> benefit.applyDiscount(localDate, orderLine),
+                        (prev, next) -> next,
+                        LinkedHashMap::new)
+                ));
+    }
+
+    private BenefitDetails applyGiveawayDiscount(Payment totalPrice) {
+        if (totalPrice.isGreaterThanEqual(120_000)) {
+            return BenefitDetails.create(totalPrice)
+                    .merge(Benefit.GIVEAWAY_BENEFIT, new Payment(Food.CHAMPAGNE.getPrice()));
+        }
+        return BenefitDetails.create(totalPrice);
     }
 }

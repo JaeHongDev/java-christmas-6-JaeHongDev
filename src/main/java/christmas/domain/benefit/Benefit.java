@@ -22,7 +22,6 @@ public enum Benefit {
     WEEKEND_DISCOUNT("주말 할인", DiscountCondition.WEEKEND_DISCOUNT, new WeekendDiscount()),
     GIVEAWAY_BENEFIT("증정 이벤트", DiscountCondition.ALL_DAY, null),
     SPECIAL_DISCOUNT("특별 할인", DiscountCondition.SPECIAL_DISCOUNT, new SpecialDiscount()),
-
     ;
     private final String name;
     private final DiscountCondition discountCondition;
@@ -40,7 +39,7 @@ public enum Benefit {
 
     public Payment applyDiscount(LocalDate date, OrderLine orderLine) {
         if (Objects.isNull(discount)) {
-            throw new IllegalStateException("잘못짰으");
+            throw new IllegalStateException("존재하지 않는 할인 혜택입니다.");
         }
         return discount.apply(date, orderLine);
     }

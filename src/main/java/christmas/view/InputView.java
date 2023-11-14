@@ -2,6 +2,7 @@ package christmas.view;
 
 import static java.util.stream.Collectors.toMap;
 
+import christmas.domain.exception.DomainExceptionCode;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -22,33 +23,30 @@ public final class InputView extends ConsoleWriter {
         try {
             return Integer.parseInt(consoleReader.read());
         } catch (NumberFormatException exception) {
-            throw new IllegalArgumentException("유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+            throw DomainExceptionCode.INVALID_DATE.createException();
         }
     }
 
     public Map<String, Integer> readOrderLine() {
         this.println("주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)");
-        final var input = consoleReader.read();
 
-        return Arrays.stream(input.split(","))
+        return Arrays.stream(consoleReader.read().split(","))
                 .map(str -> str.split("-"))
-                .peek(str -> {
-                    if (str.length != 2) {
-                        throw new IllegalArgumentException("유효하지 않은 주문입니다. 다시 입력해 주세요.");
-                    }
-                })
+                .peek(str -> DomainExceptionCode.INVALID_ORDER.invokeByCondition(str.length != 2))
                 .collect(toMap(splitStr -> splitStr[0],
-                        splitStr -> {
-                            try {
-                                return Integer.parseInt(splitStr[1]);
-                            } catch (NumberFormatException exception) {
-                                throw new IllegalArgumentException("유효하지 않은 주문입니다. 다시 입력해 주세요.");
-                            }
-                        },
+                        splitStr -> convertStringToInteger(splitStr[1]),
                         (prev, next) -> {
-                            throw new IllegalArgumentException("유효하지 않은 주문입니다. 다시 입력해 주세요.");
+                            throw DomainExceptionCode.INVALID_ORDER.createException();
                         },
                         LinkedHashMap::new
                 ));
+    }
+
+    private int convertStringToInteger(final String input) {
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException exception) {
+            throw DomainExceptionCode.INVALID_ORDER.createException();
+        }
     }
 }

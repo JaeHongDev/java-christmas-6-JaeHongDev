@@ -49,17 +49,16 @@ public record DiscountResultState(
             return "없음";
         }
         return benefitList.entrySet().stream()
-                .map(entry -> String.format("%s : -%,d원", entry.getKey(), entry.getValue()))
+                .map(entry -> String.format("%s : %,d원", entry.getKey(), entry.getValue() * -1))
                 .collect(Collectors.joining("\n"));
     }
 
     public String getBenefitPrice() {
-        return String.format("-%,d원", benefitPrice);
+        return String.format("%,d원", benefitPrice * -1);
     }
 
     public String getAmountAfterDiscount() {
         return String.format("%,d원", amountAfterDiscount);
     }
-
 
 }

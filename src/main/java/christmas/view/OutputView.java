@@ -4,7 +4,7 @@ import christmas.state.DiscountResultState;
 
 public final class OutputView extends ConsoleWriter {
     public void printError(String message) {
-        this.println(String.format("[ERROR] %s", message));
+        this.println(String.format("[ERROR] %s 다시 입력해 주세요.", message));
     }
 
     public void print(DiscountResultState state) {
@@ -31,7 +31,8 @@ public final class OutputView extends ConsoleWriter {
                                         
                         <12월 이벤트 배지>
                         %s
-                        """, state.dateOfVisit(),
+                        """,
+                state.getDateOfVisit(),
                 state.getOrderLine(),
                 state.getAmountBeforeDiscount(),
                 state.giveawayMenu(),

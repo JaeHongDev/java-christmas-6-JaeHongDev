@@ -7,11 +7,11 @@ import christmas.view.ConsoleReader.ConsoleReaderImpl;
 public class MainView {
 
     public void open() {
-        new MainComponents(
+        final var mainComponents = new MainComponents(
                 new InputView(new ConsoleReaderImpl()),
                 new OutputView(),
                 new EventListener(new OrderRepository())
-        ).renderAll();
-        
+        );
+        mainComponents.renderAll();
     }
 }
