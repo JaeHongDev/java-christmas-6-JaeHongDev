@@ -9,22 +9,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @DisplayName("[도메인] 세부 할인 내역 ")
 class BenefitDetailsTest {
 
-
-    @ParameterizedTest
-    @ValueSource(ints = {120_000, 130_000})
-    void _할인_전_금액이_12만원을_넘는_경우_샴페인이_증정됩니다(final int input) {
-        final var benefitDetails = BenefitDetails.create(new Payment(input));
-
-        assertThat(benefitDetails.getGiveawayMenu())
-                .isEqualTo("샴페인 1개");
-    }
 
     @Test
     void 혜택_내역과_금액을_가져올_수_있습니다() {

@@ -1,25 +1,25 @@
 package christmas.repository;
 
-import christmas.domain.entity.Order;
+import christmas.domain.vo.OrderLine;
 import java.time.LocalDate;
 
 public class OrderRepository {
-    private LocalDate visitOfDate;
-    private Order order;
+    private LocalDate dateOfVisit;
+    private OrderLine orderLine;
 
     public void save(LocalDate dateOfVisit) {
-        this.visitOfDate = dateOfVisit;
+        this.dateOfVisit = dateOfVisit;
     }
 
-    public LocalDate getVisitOfDate() {
-        return visitOfDate;
+    public LocalDate findDateOfVisit() {
+        return dateOfVisit;
     }
 
-    public void save(Order order) {
-        this.order = order;
+    public void save(OrderLine order) {
+        this.orderLine = order;
     }
 
-    public Order findOrder() {
-        return order;
+    public OrderLine findOrderLine() {
+        return orderLine;
     }
 }
