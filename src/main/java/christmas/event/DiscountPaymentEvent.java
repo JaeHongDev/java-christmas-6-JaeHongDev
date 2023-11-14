@@ -1,6 +1,6 @@
 package christmas.event;
 
-import christmas.domain.entity.Order;
+import christmas.domain.entity.Reservation;
 import christmas.domain.vo.Badge;
 import christmas.event.EventListener.ReturnEvent;
 import christmas.repository.OrderRepository;
@@ -11,7 +11,7 @@ public record DiscountPaymentEvent(OrderRepository repository) implements Return
     public DiscountResultState execute() {
         final var dateOfVisit = repository.findDateOfVisit();
         final var orderLine = repository.findOrderLine();
-        final var order = new Order(dateOfVisit, orderLine);
+        final var order = new Reservation(dateOfVisit, orderLine);
         final var benefitDetails = order.applyDiscount();
 
         return new DiscountResultState(

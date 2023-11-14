@@ -14,11 +14,11 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-public class Order {
+public class Reservation {
     private final LocalDate localDate;
     private final OrderLine orderLine;
 
-    public Order(LocalDate localDate, OrderLine orderLine) {
+    public Reservation(LocalDate localDate, OrderLine orderLine) {
         this.localDate = localDate;
         this.orderLine = orderLine;
     }

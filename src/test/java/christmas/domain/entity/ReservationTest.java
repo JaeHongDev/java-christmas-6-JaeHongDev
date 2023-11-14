@@ -20,11 +20,11 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @DisplayName("[도메인] 주문 테스트")
-class OrderTest {
+class ReservationTest {
 
     @Test
     void 할인_전_금액을_가지고_옵니다() {
-        final var order = new Order(LocalDate.of(2023, 12, 1),
+        final var order = new Reservation(LocalDate.of(2023, 12, 1),
                 new OrderLine(List.of(
                         new OrderItem(Food.BBQ_RIBS, 10),
                         new OrderItem(Food.RED_WINE, 5)
@@ -35,7 +35,7 @@ class OrderTest {
 
     @Test
     void 주문_메뉴와_수량을_가져올_수_있습니다() {
-        final var order = new Order(LocalDate.of(2023, 12, 1),
+        final var order = new Reservation(LocalDate.of(2023, 12, 1),
                 new OrderLine(List.of(
                         new OrderItem(Food.BBQ_RIBS, 10),
                         new OrderItem(Food.RED_WINE, 5)
@@ -50,7 +50,7 @@ class OrderTest {
 
     @Test
     void _1만원_보다_작은_경우는_할인_적용이_불가능합니다() {
-        final var order = new Order(ChristmasLocalDate.create(25), new OrderLine(
+        final var order = new Reservation(ChristmasLocalDate.create(25), new OrderLine(
                 List.of(
                         new OrderItem(Food.ICE_CREAM, 1)
                 )
@@ -67,7 +67,7 @@ class OrderTest {
             3,15000,8931
             """)
     void _1만원_이상의_경우_할인이_적용됩니다(int quantity, int payment, int discountAmount) {
-        final var order = new Order(ChristmasLocalDate.create(28), new OrderLine(
+        final var order = new Reservation(ChristmasLocalDate.create(28), new OrderLine(
                 List.of(new OrderItem(Food.ICE_CREAM, quantity))
         ));
         final var benefitDetails = order.applyDiscount();
