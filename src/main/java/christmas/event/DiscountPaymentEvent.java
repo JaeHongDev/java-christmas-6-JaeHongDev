@@ -9,8 +9,8 @@ public record DiscountPaymentEvent(OrderRepository repository) implements Return
     @Override
     public DiscountResultState execute() {
         final var order = repository.findOrder();
-
         final var benefitDetails = order.applyDiscount();
+
         return new DiscountResultState(
                 repository.getVisitOfDate(),
                 order.selectMenuAndQuantity(),
