@@ -31,7 +31,7 @@ public record DiscountResultState(
     }
 
     public String getGiveawayMenu() {
-        return String.format("%s 1개", giveawayMenu);
+        return String.format("%s", giveawayMenu);
     }
 
     public String getBenefitList() {

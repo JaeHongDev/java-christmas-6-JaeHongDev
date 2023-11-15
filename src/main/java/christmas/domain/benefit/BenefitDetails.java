@@ -20,7 +20,11 @@ public record BenefitDetails(
         final var filteredZeroPayments = benefitPayments.entrySet()
                 .stream()
                 .filter(benefitPaymentEntry -> !benefitPaymentEntry.getValue().isZero())
-                .collect(Collectors.toMap(Entry::getKey, Entry::getValue));
+                .collect(Collectors.toMap(Entry::getKey,
+                        Entry::getValue,
+                        (prev, next) -> next,
+                        LinkedHashMap::new)
+                );
 
         filteredZeroPayments.putAll(this.benefitPayments);
 
@@ -29,7 +33,7 @@ public record BenefitDetails(
 
     public String getGiveawayMenu() {
         if (benefitPayments.containsKey(Benefit.GIVEAWAY_BENEFIT)) {
-            return Food.CHAMPAGNE.getName();
+            return String.format("%s 1개", Food.CHAMPAGNE.getName());
         }
         return "없음";
     }
