@@ -16,6 +16,15 @@ class BenefitDetailsTest {
 
 
     @Test
+    void 할인_금액이_0원인_경우는_할인이_적용된_것이_아니다() {
+        final var benefitDetails = BenefitDetails.create(new Payment(0))
+                .merge(new LinkedHashMap<>() {{
+                    this.put(Benefit.SPECIAL_DISCOUNT, new Payment(0));
+                }}).getBenefitList();
+        assertThat(benefitDetails.containsKey(Benefit.SPECIAL_DISCOUNT.getBenefitName())).isFalse();
+    }
+
+    @Test
     void 혜택_내역과_금액을_가져올_수_있습니다() {
         final var benefitDetails = BenefitDetails.create(new Payment(0))
                 .merge(new LinkedHashMap<>() {{
