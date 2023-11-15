@@ -5,21 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-/**
- * <주문 메뉴> 티본스테이크 1개 바비큐립 1개 초코케이크 2개 제로콜라 1개
- * <p>
- * <할인 전 총주문 금액> 142,000원
- * <p>
- * <증정 메뉴> 샴페인 1개
- * <p>
- * <혜택 내역> 크리스마스 디데이 할인: -1,200원 평일 할인: -4,046원 특별 할인: -1,000원 증정 이벤트: -25,000원
- * <p>
- * <총혜택 금액> -31,246원
- * <p>
- * <할인 후 예상 결제 금액> 135,754원
- * <p>
- * <12월 이벤트 배지>
- */
 public record DiscountResultState(
         LocalDate dateOfVisit,
         Map<String, Integer> orderItem,
@@ -30,6 +15,7 @@ public record DiscountResultState(
         int amountAfterDiscount,
         String badge
 ) {
+
     public String getDateOfVisit() {
         return dateOfVisit.format(DateTimeFormatter.ofPattern("MM월 d일"));
     }
@@ -42,6 +28,10 @@ public record DiscountResultState(
 
     public String getAmountBeforeDiscount() {
         return String.format("%,d원", amountBeforeDiscount);
+    }
+
+    public String getGiveawayMenu() {
+        return String.format("%s 1개", giveawayMenu);
     }
 
     public String getBenefitList() {

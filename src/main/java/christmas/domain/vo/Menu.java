@@ -16,6 +16,7 @@ import static christmas.domain.vo.Food.ZERO_COLA;
 import java.util.List;
 
 public enum Menu {
+
     APPETIZER(List.of(MUSHROOM_SOUP, TAPAS, CAESAR_SALAD)),
     MAIN_COURSE(List.of(T_BONE_STEAK, BBQ_RIBS, SEAFOOD_PASTA, CHRISTMAS_PASTA)),
     DESSERT(List.of(CHOCO_CAKE, ICE_CREAM)),
@@ -29,4 +30,5 @@ public enum Menu {
     public boolean contains(Food food) {
         return foods.contains(food);
     }
+
 }

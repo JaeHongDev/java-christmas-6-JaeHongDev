@@ -32,4 +32,5 @@ public enum DomainExceptionCode {
     public String getMessage() {
         return message;
     }
+
 }

@@ -19,7 +19,6 @@ import org.junit.jupiter.params.provider.CsvSource;
 @DisplayName("[도메인] 주말할인 ")
 class WeekendDiscountTest {
 
-
     @ParameterizedTest
     @CsvSource(textBlock = """
             1,2023

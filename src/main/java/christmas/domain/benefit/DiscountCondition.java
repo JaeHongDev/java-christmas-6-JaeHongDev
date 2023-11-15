@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.function.Predicate;
 
 public enum DiscountCondition {
+
     CHRISTMAS_DISCOUNT(ChristmasLocalDate::beforeChristmas),
     WEEKEND_DISCOUNT(ChristmasLocalDate::isWeekend),
     WEEKDAY_DISCOUNT(ChristmasLocalDate::isWeekday),
@@ -19,4 +20,5 @@ public enum DiscountCondition {
     public boolean isSatisfy(LocalDate date) {
         return predicate.test(date);
     }
+
 }

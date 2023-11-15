@@ -47,4 +47,5 @@ public enum Benefit {
     public String getBenefitName() {
         return name;
     }
+
 }

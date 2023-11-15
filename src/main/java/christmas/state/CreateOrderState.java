@@ -15,4 +15,5 @@ public record CreateOrderState(Map<String, Integer> value) {
                 .map(entry -> new OrderItem(entry.getKey(), entry.getValue()))
                 .collect(collectingAndThen(toUnmodifiableList(), OrderLine::new));
     }
+
 }

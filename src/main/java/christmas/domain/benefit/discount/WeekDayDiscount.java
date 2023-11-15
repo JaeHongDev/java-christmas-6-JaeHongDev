@@ -17,4 +17,5 @@ public class WeekDayDiscount implements Discount {
                 .mapToInt(OrderItem::quantity)
                 .sum() * DISCOUNT_AMOUNT);
     }
+
 }

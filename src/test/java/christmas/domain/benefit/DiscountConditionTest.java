@@ -88,4 +88,5 @@ class DiscountConditionTest {
                         .forEach((date) -> assertThat(SPECIAL_DISCOUNT.isSatisfy(date)).isFalse())
         );
     }
+    
 }

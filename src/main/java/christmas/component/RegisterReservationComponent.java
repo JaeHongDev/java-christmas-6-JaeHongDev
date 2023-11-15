@@ -29,4 +29,5 @@ public record RegisterReservationComponent(InputView inputView, OutputView outpu
         eventListener.listenWithParameter(RegisterOrderEvent::new)
                 .accept(new CreateOrderState(inputView.readOrderLine()));
     }
+    
 }

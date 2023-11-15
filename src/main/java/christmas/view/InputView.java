@@ -51,4 +51,5 @@ public final class InputView extends ConsoleWriter {
             throw DomainExceptionCode.INVALID_ORDER.createException();
         }
     }
+
 }

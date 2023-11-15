@@ -8,6 +8,7 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 
 public record RegisterDateOfVisitEvent(OrderRepository orderRepository) implements ParameterEvent<Integer> {
+
     @Override
     public void execute(Integer input) {
         orderRepository.save(parse(input));
@@ -20,4 +21,5 @@ public record RegisterDateOfVisitEvent(OrderRepository orderRepository) implemen
             throw DomainExceptionCode.INVALID_DATE.createException();
         }
     }
+
 }

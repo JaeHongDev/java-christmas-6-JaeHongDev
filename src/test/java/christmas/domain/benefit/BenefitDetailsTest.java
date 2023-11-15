@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
 @DisplayName("[도메인] 세부 할인 내역 ")
 class BenefitDetailsTest {
 
-
     @Test
     void 할인_금액이_0원인_경우는_할인이_적용된_것이_아니다() {
         final var benefitDetails = BenefitDetails.create(new Payment(0))

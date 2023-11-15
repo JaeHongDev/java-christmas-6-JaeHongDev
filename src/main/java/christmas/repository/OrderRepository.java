@@ -4,6 +4,7 @@ import christmas.domain.vo.OrderLine;
 import java.time.LocalDate;
 
 public class OrderRepository {
+
     private LocalDate dateOfVisit;
     private OrderLine orderLine;
 
@@ -22,4 +23,5 @@ public class OrderRepository {
     public OrderLine findOrderLine() {
         return orderLine;
     }
+
 }

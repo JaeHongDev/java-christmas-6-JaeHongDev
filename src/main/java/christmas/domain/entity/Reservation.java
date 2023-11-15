@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 public class Reservation {
+
     private final LocalDate localDate;
     private final OrderLine orderLine;
 
@@ -64,4 +65,5 @@ public class Reservation {
         }
         return BenefitDetails.create(totalPrice);
     }
+
 }

@@ -31,4 +31,5 @@ public record OrderLine(
                 .map(OrderItem::food)
                 .allMatch(Menu.BEVERAGE::contains);
     }
+
 }

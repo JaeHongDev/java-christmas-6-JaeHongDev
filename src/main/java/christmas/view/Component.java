@@ -3,6 +3,7 @@ package christmas.view;
 import java.util.function.Consumer;
 
 public interface Component {
+
     void render();
 
     default void repeatWhenCauseError(Runnable runnable, Consumer<String> errorHandler) {
@@ -13,4 +14,5 @@ public interface Component {
             repeatWhenCauseError(runnable, errorHandler);
         }
     }
+
 }

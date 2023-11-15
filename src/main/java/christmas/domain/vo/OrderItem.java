@@ -19,4 +19,5 @@ public record OrderItem(Food food, int quantity) {
     public int getTotalPrice() {
         return food.calculatePrice(quantity);
     }
+
 }

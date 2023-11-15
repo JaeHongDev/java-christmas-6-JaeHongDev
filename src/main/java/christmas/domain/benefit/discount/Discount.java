@@ -5,5 +5,7 @@ import christmas.domain.vo.Payment;
 import java.time.LocalDate;
 
 public interface Discount {
+
     Payment apply(LocalDate date, OrderLine orderLine);
+
 }

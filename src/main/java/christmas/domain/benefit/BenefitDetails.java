@@ -21,13 +21,15 @@ public record BenefitDetails(
                 .stream()
                 .filter(benefitPaymentEntry -> !benefitPaymentEntry.getValue().isZero())
                 .collect(Collectors.toMap(Entry::getKey, Entry::getValue));
+
         filteredZeroPayments.putAll(this.benefitPayments);
+
         return new BenefitDetails(totalPrice, filteredZeroPayments);
     }
 
     public String getGiveawayMenu() {
         if (benefitPayments.containsKey(Benefit.GIVEAWAY_BENEFIT)) {
-            return Food.CHAMPAGNE.getName() + " 1개";
+            return Food.CHAMPAGNE.getName();
         }
         return "없음";
     }
@@ -63,4 +65,5 @@ public record BenefitDetails(
         benefitPayments.put(benefit, payment);
         return new BenefitDetails(totalPrice, benefitPayments);
     }
+
 }

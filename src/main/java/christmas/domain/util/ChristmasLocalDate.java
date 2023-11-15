@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class ChristmasLocalDate {
+
     private static final int YEAR = 2023;
     private static final int MONTH = 12;
 
@@ -32,4 +33,5 @@ public class ChristmasLocalDate {
     public static boolean isWeekday(LocalDate date) {
         return !isWeekend(date);
     }
+
 }

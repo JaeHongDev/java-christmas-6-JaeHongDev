@@ -7,6 +7,7 @@ import christmas.repository.OrderRepository;
 import christmas.state.DiscountResultState;
 
 public record DiscountPaymentEvent(OrderRepository repository) implements ReturnEvent<DiscountResultState> {
+
     @Override
     public DiscountResultState execute() {
         final var dateOfVisit = repository.findDateOfVisit();
@@ -24,6 +25,6 @@ public record DiscountPaymentEvent(OrderRepository repository) implements Return
                 benefitDetails.calculateAmountAfterDiscount(),
                 Badge.of(benefitDetails.calculateBenefitAmount()).getName()
         );
-
     }
+
 }

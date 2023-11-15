@@ -10,8 +10,5 @@ public sealed class ConsoleWriter permits InputView, OutputView {
         System.out.print(data);
     }
 
-    protected void newLine() {
-        System.out.println();
-    }
 }
 

@@ -17,4 +17,5 @@ public class ChristmasDiscount implements Discount {
                 .max()
                 .orElse(0));
     }
+
 }

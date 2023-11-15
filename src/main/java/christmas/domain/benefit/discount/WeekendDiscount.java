@@ -7,6 +7,7 @@ import christmas.domain.vo.Payment;
 import java.time.LocalDate;
 
 public class WeekendDiscount implements Discount {
+
     private static final int DISCOUNT_AMOUNT = 2023;
 
     @Override
@@ -17,4 +18,5 @@ public class WeekendDiscount implements Discount {
                 .mapToInt(OrderItem::quantity)
                 .sum() * DISCOUNT_AMOUNT);
     }
+
 }
