@@ -17,8 +17,12 @@ public record BenefitDetails(
     }
 
     public BenefitDetails merge(final Map<Benefit, Payment> benefitPayments) {
-        benefitPayments.putAll(this.benefitPayments);
-        return new BenefitDetails(totalPrice, benefitPayments);
+        final var filteredZeroPayments = benefitPayments.entrySet()
+                .stream()
+                .filter(benefitPaymentEntry -> !benefitPaymentEntry.getValue().isZero())
+                .collect(Collectors.toMap(Entry::getKey, Entry::getValue));
+        filteredZeroPayments.putAll(this.benefitPayments);
+        return new BenefitDetails(totalPrice, filteredZeroPayments);
     }
 
     public String getGiveawayMenu() {
