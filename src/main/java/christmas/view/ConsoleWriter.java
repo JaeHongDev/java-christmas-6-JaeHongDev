@@ -6,12 +6,6 @@ public sealed class ConsoleWriter permits InputView, OutputView {
         System.out.println(data);
     }
 
-    protected void println(final String format, final Object... data) {
-        System.out.printf(format, data);
-        this.newLine();
-
-    }
-
     public void print(final Object data) {
         System.out.print(data);
     }
@@ -20,3 +14,4 @@ public sealed class ConsoleWriter permits InputView, OutputView {
         System.out.println();
     }
 }
+
