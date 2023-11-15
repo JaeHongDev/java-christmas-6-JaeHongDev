@@ -1,32 +1,16 @@
 package christmas.view;
 
+import java.util.function.Consumer;
+
 public interface Component {
     void render();
 
-    default ComponentRenderResult invoke() {
+    default void repeatWhenCauseError(Runnable runnable, Consumer<String> errorHandler) {
         try {
-            this.render();
-            return ComponentRenderResult.success();
-        } catch (IllegalArgumentException illegalArgumentException) {
-            return ComponentRenderResult.error(illegalArgumentException.getMessage());
+            runnable.run();
+        } catch (IllegalArgumentException | IllegalStateException exception) {
+            errorHandler.accept(exception.getMessage());
+            repeatWhenCauseError(runnable, errorHandler);
         }
     }
-
-
-    record ComponentRenderResult(boolean isComplete, String errorMessage) {
-
-        public static ComponentRenderResult success() {
-            return new ComponentRenderResult(true, "");
-        }
-
-        public static ComponentRenderResult error(String errorMessage) {
-            return new ComponentRenderResult(false, errorMessage);
-        }
-
-        public boolean isContinue() {
-            return !isComplete;
-        }
-    }
-
-    
 }
