@@ -26,6 +26,7 @@ class ChristmasDiscountTest {
     void 크리스마스_할인은_1일부터_시작해서_25일까지_100원식_증가합니다(int day, int price) {
         final var date = ChristmasLocalDate.create(day);
         final var orderLine = OrderLineFixture.ONLY_MAIN_MENU;
+        
         assertThat(new ChristmasDiscount().apply(date, orderLine))
                 .isEqualTo(new Payment(price));
 

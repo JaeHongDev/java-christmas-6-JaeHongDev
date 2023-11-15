@@ -20,20 +20,22 @@ class WeekDayDiscountTest {
 
     @Test
     void 평일_할인은_디저트_메뉴_수량_1개당_2023원_할인됩니다() {
-        final var result = new WeekDayDiscount().apply(ChristmasLocalDateFixture.CHRISTMAS_DATE, new OrderLine(
-                List.of(
-                        new OrderItem(Food.ICE_CREAM, 10),
-                        new OrderItem(Food.MUSHROOM_SOUP, 10)
-                )
-        ));
+        final var orderLine = new OrderLine(List.of(
+                new OrderItem(Food.ICE_CREAM, 10),
+                new OrderItem(Food.MUSHROOM_SOUP, 10))
+        );
+        final var result = new WeekDayDiscount().apply(ChristmasLocalDateFixture.CHRISTMAS_DATE, orderLine);
+
         assertThat(result).isEqualTo(new Payment(20230));
     }
 
     @Test
     void 디저트_메뉴가_없으면_0원입니다() {
-        final var result = new WeekDayDiscount().apply(ChristmasLocalDateFixture.CHRISTMAS_DATE, new OrderLine(
+        final var orderLine = new OrderLine(
                 List.of(new OrderItem(Food.MUSHROOM_SOUP, 10))
-        ));
+        );
+        final var result = new WeekDayDiscount().apply(ChristmasLocalDateFixture.CHRISTMAS_DATE, orderLine);
+        
         assertThat(result).isEqualTo(new Payment(0));
     }
 

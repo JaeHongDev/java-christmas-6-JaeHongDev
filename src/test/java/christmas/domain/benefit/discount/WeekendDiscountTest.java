@@ -26,17 +26,17 @@ class WeekendDiscountTest {
             20,40460
             """)
     void 주말_할인은_메인_메뉴_수량_1개당_2023원_할인됩니다(int quantity, int discountAmount) {
-        final var result = new WeekendDiscount()
-                .apply(ChristmasLocalDateFixture.CHRISTMAS_DATE, new OrderLine(List.of(new OrderItem(Food.BBQ_RIBS, quantity))
-                ));
+        final var orderLine = new OrderLine(List.of(new OrderItem(Food.BBQ_RIBS, quantity)));
+        final var result = new WeekendDiscount().apply(ChristmasLocalDateFixture.CHRISTMAS_DATE, orderLine);
+
         assertThat(result).isEqualTo(new Payment(discountAmount));
     }
 
     @Test
     void 메인_메뉴가_없는_경우는_0원_할인_됩니다() {
-        final var result = new WeekendDiscount().apply(ChristmasLocalDateFixture.CHRISTMAS_DATE, new OrderLine(
-                List.of(new OrderItem(Food.ICE_CREAM, 10))
-        ));
+        final var orderLine = new OrderLine(List.of(new OrderItem(Food.ICE_CREAM, 10)));
+        final var result = new WeekendDiscount().apply(ChristmasLocalDateFixture.CHRISTMAS_DATE, orderLine);
+        
         assertThat(result).isEqualTo(new Payment(0));
 
     }

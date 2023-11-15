@@ -20,6 +20,7 @@ class BenefitDetailsTest {
                 .merge(new LinkedHashMap<>() {{
                     this.put(Benefit.SPECIAL_DISCOUNT, new Payment(0));
                 }}).getBenefitList();
+
         assertThat(benefitDetails.containsKey(Benefit.SPECIAL_DISCOUNT.getBenefitName())).isFalse();
     }
 
@@ -31,6 +32,7 @@ class BenefitDetailsTest {
                     this.put(Benefit.SPECIAL_DISCOUNT, new Payment(2000));
                     this.put(Benefit.WEEKDAY_DISCOUNT, new Payment(3000));
                 }});
+
         final var benefitList = benefitDetails.getBenefitList();
 
         assertAll(
