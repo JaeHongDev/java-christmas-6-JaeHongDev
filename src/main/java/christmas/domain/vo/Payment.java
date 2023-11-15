@@ -9,6 +9,10 @@ public record Payment(int value) {
         return value <= other;
     }
 
+    public boolean isZero() {
+        return value == 0;
+    }
+
     public boolean isLessThan(int other) {
         return value < other;
     }

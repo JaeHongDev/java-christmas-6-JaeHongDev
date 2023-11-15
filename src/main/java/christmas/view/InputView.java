@@ -10,6 +10,7 @@ import java.util.Map;
 public final class InputView extends ConsoleWriter {
 
     private final ConsoleReader consoleReader;
+    private final int MENU_FORMAT_SIZE = 2;
 
     public InputView(ConsoleReader consoleReader) {
         this.consoleReader = consoleReader;
@@ -32,10 +33,11 @@ public final class InputView extends ConsoleWriter {
 
         return Arrays.stream(consoleReader.read().split(","))
                 .map(str -> str.split("-"))
-                .peek(str -> DomainExceptionCode.INVALID_ORDER.invokeByCondition(str.length != 2))
+                .peek(str -> DomainExceptionCode.INVALID_ORDER.invokeByCondition(str.length != MENU_FORMAT_SIZE))
                 .collect(toMap(splitStr -> splitStr[0],
                         splitStr -> convertStringToInteger(splitStr[1]),
                         (prev, next) -> {
+                            //중복된 주문이 발생하는 경우
                             throw DomainExceptionCode.INVALID_ORDER.createException();
                         },
                         LinkedHashMap::new
