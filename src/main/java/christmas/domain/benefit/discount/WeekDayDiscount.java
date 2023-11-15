@@ -7,6 +7,7 @@ import christmas.domain.vo.Payment;
 import java.time.LocalDate;
 
 public class WeekDayDiscount implements Discount {
+    
     private static final int DISCOUNT_AMOUNT = 2023;
 
     @Override

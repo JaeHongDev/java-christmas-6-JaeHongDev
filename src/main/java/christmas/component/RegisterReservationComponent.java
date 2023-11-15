@@ -13,6 +13,8 @@ public record RegisterReservationComponent(InputView inputView, OutputView outpu
 
     @Override
     public void render() {
+        outputView.printInformationMessage();
+
         repeatWhenCauseError(this::registerDateOfVisit, outputView::printError);
         repeatWhenCauseError(this::registerOrderLine, outputView::printError);
 
@@ -29,5 +31,5 @@ public record RegisterReservationComponent(InputView inputView, OutputView outpu
         eventListener.listenWithParameter(RegisterOrderEvent::new)
                 .accept(new CreateOrderState(inputView.readOrderLine()));
     }
-    
+
 }
